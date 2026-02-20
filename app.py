@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask import flash
-from  flask_wtf.csrf import CSRFProtect
+from flask_wtf.csrf import CSRFProtect
 from flask import g
 from models import db
 from models import Alumnos
 from config import DevelopEmConfig
+import forms
 
 app = Flask(__name__)
 app.config.from_object(DevelopEmConfig)
@@ -17,11 +18,33 @@ def page_not_found(e):
 @app.route("/")
 @app.route("/index")
 def index():
-	return render_template("index.html")
+    create_form = forms.UserForm(request.form)
+    alumnos = Alumnos.query.all()
+    return render_template("index.html", form=create_form, alumnos=alumnos)
 
-@app.route("/alumnos")
+@app.route("/alumnos", methods=["GET", "POST"])
 def alumnos():
-	return render_template("alumnos.html")
+     create_form = forms.UserForm(request.form)
+     if request.method=="POST":
+         alum= Alumnos(nombre = create_form.nombre.data,
+                       apaterno = create_form.apaterno.data,
+                       email =create_form.email.data)
+         
+         db.session.add(alum)
+         db.session.commit()
+         return redirect(url_for("index"))
+     return render_template("alumnos.html", form = create_form)
+ 
+@app.route("/detalles/<int:id>", methods=["GET", "POST"])
+def detalles():
+     if request.method=="GET":
+        id = request.args.get('id')
+        alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+        id = request.args.get('id')
+        nombre = alum1.nombre 
+        apaterno = alum1.apaterno
+        email = alum1.email       
+     return render_template("detalles.html", nombre = nombre, apaterno = apaterno, email = email) 
 
 if __name__ == '__main__':
     csrf.init_app(app)

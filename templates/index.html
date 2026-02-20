@@ -9,128 +9,50 @@
         <thead class="bg-neutral-secondary-soft border-b border-default">
             <tr>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Product name
+                    nombre
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Color
+                    Apellido paterno
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Category
+                    email
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Price
+                    Editar
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Action
+                    Eliminar
                 </th>
                 <th scope="col" class="px-6 py-3 font-medium">
-                    Action
+                    Detalles
                 </th>
                 
             </tr>
         </thead>
         <tbody>
+            {% for alum in alumnos %}
             <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
                 <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                    Apple MacBook Pro 17"
+                    {{ alum.nombre }}
                 </th>
                 <td class="px-6 py-4">
-                    Silver
+                    {{ alum.apaterno }}
                 </td>
                 <td class="px-6 py-4">
-                    Laptop
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
-                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                    Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">
-                    White
-                </td>
-                <td class="px-6 py-4">
-                    Laptop PC
+                    {{ alum.email }}
                 </td>
                 <td class="px-6 py-4">
                     <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Editar</a>
                 </td>
                 <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Eliminar</a>
+                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">modificar </a>
                 </td>
                 <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Detalles</a>
+                    <a href="detalles{{alum.id}}" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Detalles</a>
                 </td>
             </tr>
-            <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
-                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                    Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">
-                    Black
-                </td>
-                <td class="px-6 py-4">
-                    Accessories
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
-                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                    Google Pixel Phone
-                </th>
-                <td class="px-6 py-4">
-                    Gray
-                </td>
-                <td class="px-6 py-4">
-                    Phone
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-            </tr>
-            <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft">
-                <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
-                    Apple Watch 5
-                </th>
-                <td class="px-6 py-4">
-                    Red
-                </td>
-                <td class="px-6 py-4">
-                    Wearables
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-                <td class="px-6 py-4">
-                    <a href="#" class="text-white bg-brand box-border border border-transparent hover:bg-brand-strong focus:ring-4 focus:ring-brand-medium shadow-xs font-medium leading-5 rounded-base text-sm px-4 py-2.5 focus:outline-none">Edit</a>
-                </td>
-            </tr>
-        </tbody>
+            {% endfor %}
+        </tbody> 
     </table>
 </div>
 
