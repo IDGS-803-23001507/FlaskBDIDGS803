@@ -7,3 +7,5 @@ insert into alumnos(nombre, apaterno, email) values
 
 drop table alumnos; 
 select * from alumnos;
+
+

@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<div class ="relative">
+
+    <h1 class="mb-8 mt-8 text-4xl font-semibold tracking-tight text-gray-900">
+        Bienvenido a cursos
+    </h1>
+
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+        <thead class="bg-neutral-secondary-soft border-b border-default">
+            <tr>
+                <th class="px-6 py-3 font-medium">nombre</th>
+                <th class="px-6 py-3 font-medium">descripcion</th>
+                <th class="px-6 py-3 font-medium">Editar</th>
+                <th class="px-6 py-3 font-medium">Eliminar</th>
+                <th class="px-6 py-3 font-medium">Detalles</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for curs in cursos %}
+        <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
+
+            <th class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                {{ curs.nombre }}
+            </th>
+
+            <td class="px-6 py-4">
+                {{ curs.descripcion }}
+            </td>
+
+            <td class="px-6 py-4">
+                <a href="modificarCursos?id={{curs.id}}"
+                   class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 shadow-xs font-medium rounded-base text-sm px-4 py-2">
+                   Editar
+                </a>
+            </td>
+
+            <td class="px-6 py-4">
+                <a href="eliminarCursos?id={{curs.id}}"
+                   class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 shadow-xs font-medium rounded-base text-sm px-4 py-2">
+                   Eliminar
+                </a>
+            </td>
+
+            <td class="px-6 py-4">
+                <a href="detallesCursos?id={{curs.id}}"
+                   class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 shadow-xs font-medium rounded-base text-sm px-4 py-2">
+                   Detalles
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<div class="mt-6 flex justify-end gap-4">
+    <a href="{{ url_for('cursos.insertCursos') }}"
+       class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 shadow-sm font-medium rounded-lg text-sm px-5 py-2 transition duration-200">
+       Registrar Curso
+    </a>
+</div>
+</div>
+
+{% endblock %}

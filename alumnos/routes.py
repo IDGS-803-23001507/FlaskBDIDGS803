@@ -1,58 +1,74 @@
+from . import alumnos
 from flask import Flask, render_template, request, redirect, url_for
 from flask import flash
 from flask_wtf.csrf import CSRFProtect
 from flask import g
 from models import db
-from models import Alumnos
+from models import Alumnos, Maestros, Cursos, Inscripciones
 from config import DevelopEmConfig
 import forms
+from forms import InscripcionesForm
 from flask_migrate import Migrate
 
-from maestros.routes import maestros
-from alumnos.routes import alumnos
-from cursos.routes import cursos
-
-app = Flask(__name__)
-app.config.from_object(DevelopEmConfig)
-app.register_blueprint(maestros)
-app.register_blueprint(alumnos)
-app.register_blueprint(cursos)
-db.init_app(app)
-migrate = Migrate(app, db)
-csrf = CSRFProtect()
-
-@app.errorhandler(404)
+@alumnos.errorhandler(404)
 def page_not_found(e):
     return render_template("404.html"), 404
 
-@app.route("/")
-@app.route("/index")
-def index():
+@alumnos.route("/inscribir", methods=["GET", "POST"])
+def inscribir_alumno():
+    form = InscripcionesForm(request.form)
+
+    alumnos = Alumnos.query.all()
+    cursos = Cursos.query.all()
+
+    form.alumno_id.choices = [(a.id, f"{a.nombre} {a.apellidos}") for a in alumnos]
+    form.cursos_id.choices = [(c.id, c.nombre) for c in cursos]
+
+    if request.method == "POST" and form.validate():
+     
+        existing = Inscripciones.query.filter_by(
+            alumno_id=form.alumno_id.data,
+            cursos_id=form.cursos_id.data
+        ).first()
+
+        if not existing:
+            inscripcion = Inscripciones(
+                alumno_id=form.alumno_id.data,
+                cursos_id=form.cursos_id.data
+            )
+            db.session.add(inscripcion)
+            db.session.commit()
+
+        return redirect(url_for("index"))
+    return render_template("alumnos/inscripciones.html", form=form)
+
+@alumnos.route("/alumnos")
+def indexAlumnos():
     create_form = forms.UserForm(request.form)
     alumnos = Alumnos.query.all()
-    return render_template("index.html", form=create_form, alumnos=alumnos)
+    return render_template("alumnos/indexAlumnos.html", form=create_form, alumnos=alumnos)
 
-@app.route("/alumnos", methods=["GET", "POST"])
-def alumnos():
+@alumnos.route("/registrarAlumnos", methods=["GET", "POST"])
+def insertAlumnos():
      create_form = forms.UserForm(request.form)
      if request.method=="POST":
          alum= Alumnos(nombre = create_form.nombre.data,
-                       apaterno = create_form.apaterno.data,
+                       apellidos = create_form.apellidos.data,
                        email =create_form.email.data,
-                       telefono =create_form.email.data)
+                       telefono =create_form.telefono.data)
          
          db.session.add(alum)
          db.session.commit()
          return redirect(url_for("index"))
-     return render_template("alumnos.html", form = create_form)
+     return render_template("alumnos/alumnos.html", form = create_form)
  
-@app.route("/detalles")
-def detalles():
+@alumnos.route("/detalles")
+def detallesAlumnos():
     id = request.args.get('id')
     alum = Alumnos.query.get_or_404(id)
-    return render_template("detalles.html", alum=alum)
+    return render_template("alumnos/detalles.html", alum=alum)
 
-@app.route("/modificar", methods=["GET", "POST"])
+@alumnos.route("/modificar", methods=["GET", "POST"])
 def modificar():
     create_form = forms.UserForm(request.form)
     if request.method=="GET":
@@ -74,9 +90,9 @@ def modificar():
         db.session.add(alum1)
         db.session.commit()
         return redirect(url_for("index"))     
-    return render_template("modificar.html", form = create_form) 
+    return render_template("alumnos/modificar.html", form = create_form) 
 
-@app.route("/eliminar", methods=["GET", "POST"])
+@alumnos.route("/eliminar", methods=["GET", "POST"])
 def eliminar():
     create_form = forms.UserForm(request.form)
     if request.method=="GET":
@@ -96,11 +112,4 @@ def eliminar():
         db.session.delete(alum1)
         db.session.commit()
         return redirect(url_for("index"))     
-    return render_template("eliminar.html", form = create_form) 
-
-
-if __name__ == '__main__':
-    csrf.init_app(app)
-    with app.app_context():
-        db.create_all()
-    app.run(debug=True)
+    return render_template("alumnos/eliminar.html", form = create_form) 

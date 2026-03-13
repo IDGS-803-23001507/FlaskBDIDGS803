@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<div class="relative">
+
+    <h1 class="mb-8 mt-8 text-4xl font-semibold tracking-tight text-gray-900">
+        Bienvenido a maestros
+    </h1>
+
+<div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+
+    <table class="w-full text-sm text-left rtl:text-right text-body">
+        <thead class="bg-neutral-secondary-soft border-b border-default">
+            <tr>
+                <th class="px-6 py-3 font-medium">Matricula</th>
+                <th class="px-6 py-3 font-medium">Nombre</th>
+                <th class="px-6 py-3 font-medium">Apellidos</th>
+                <th class="px-6 py-3 font-medium">Especialidad</th>
+                <th class="px-6 py-3 font-medium">Email</th>
+                <th class="px-6 py-3 font-medium">Editar</th>
+                <th class="px-6 py-3 font-medium">Eliminar</th>
+                <th class="px-6 py-3 font-medium">Detalles</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for mast in maestros %}
+        <tr class="odd:bg-neutral-primary even:bg-neutral-secondary-soft border-b border-default">
+
+            <th class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                {{ mast.matricula }}
+            </th>
+            <th class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                {{ mast.nombre }}
+            </th>
+
+            <td class="px-6 py-4">
+                {{ mast.apellidos }}
+            </td>
+
+            <td class="px-6 py-4">
+                {{ mast.especialidad }}
+            </td>
+
+            <td class="px-6 py-4">
+                {{ mast.email }}
+            </td>
+
+            <td class="px-6 py-4">
+                <a href="actualizar_maestros?matricula={{mast.matricula}}"
+                   class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 shadow-xs font-medium rounded-base text-sm px-4 py-2">
+                   Editar
+                </a>
+            </td>
+
+            <td class="px-6 py-4">
+                <a href="eliminar_maestros?matricula={{mast.matricula}}"
+                   class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 shadow-xs font-medium rounded-base text-sm px-4 py-2">
+                   Eliminar
+                </a>
+            </td>
+
+            <td class="px-6 py-4">
+                <a href="detalles_maestro?matricula={{mast.matricula}}"
+                   class="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:ring-green-300 shadow-xs font-medium rounded-base text-sm px-4 py-2">
+                   Detalles
+                </a>
+            </td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="mt-6 flex justify-end gap-4">
+    <a href="{{ url_for('maestros.insert_maestros') }}"
+       class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 shadow-sm font-medium rounded-lg text-sm px-5 py-2 transition duration-200">
+       Registrar Maestro
+    </a>
+</div>
+
+</div>
+{% endblock %}

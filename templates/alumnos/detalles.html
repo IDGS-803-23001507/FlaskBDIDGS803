@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<div class="flex justify-center mt-10">
+
+    <div class="w-[420px] bg-neutral-primary-soft block max-w-sm border border-default rounded-base shadow-xs">
+
+        <img 
+            class="rounded-t-base w-1/2 mx-auto"
+            src="{{ url_for('static', filename='src/userImage.png') }}"
+            alt="Foto del alumno"
+        />
+
+        <div class="p-6 text-center">
+
+            <span class="inline-flex items-center bg-brand-softer border border-brand-subtle text-fg-brand-strong text-xs font-medium px-1.5 py-0.5 rounded-sm">
+                Alumno
+            </span>
+
+            <h5 class="mt-3 mb-4 text-2xl font-semibold tracking-tight text-heading">
+                {{ alum.nombre }} {{ alum.apellidos }}
+            </h5>
+
+            <p class="text-sm mb-2">
+                <strong>Email:</strong> {{ alum.email }}
+            </p>
+
+            <p class="text-sm mb-6">
+                <strong>Teléfono:</strong> {{ alum.telefono }}
+            </p>
+
+            <div class="text-left mt-4">
+                <h6 class="font-semibold mb-2">Cursos Inscritos:</h6>
+                <ul class="list-disc list-inside text-sm">
+                    {% if alum.cursos %}
+                        {% for curso in alum.cursos %}
+                            <li>{{ curso.nombre }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>No está inscrito en ningún curso.</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <a href="{{ url_for('index') }}"
+            class=" mt-4 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 shadow-xs font-medium rounded-base text-sm px-4 py-2">
+            Volver
+         </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
